@@ -1,0 +1,137 @@
+body{
+			margin: 0;padding: 0;
+			font-family: "Microsoft Yahei";
+			background: #f4f4f4;
+		}
+		a{
+			text-decoration: none;
+			color: #f40;
+		}
+		.wrap{
+			width: 100%;
+		}
+		.top{
+			width: 100%;
+			height: 300px;
+			background: #4e505f;
+			display: table;
+		}
+		.top span{
+			display: table-cell;
+			vertical-align: middle;
+			font-size: 4.25rem;
+			color: #fff;
+			letter-spacing: 1rem;
+			text-align: center;
+		}
+		.top img{
+			vertical-align: middle;
+		}
+		.intro{
+			padding: 2rem 2rem 0.5rem 2rem;
+			overflow: hidden;
+			border-bottom: 1px solid #DE201F;
+		}
+		.intro img{
+			width: 400px;
+			height: 300px;
+			float: left;
+		}
+		.dinning_intro{
+			float: left;
+			margin-left: 2rem;
+		}
+		.dinning_intro h2{
+			margin: 0.5rem 0;
+			font-size: 2rem;
+		}
+		.dinning_intro p{
+			font-size: 2rem;
+		}
+		.dinning_intro p a{
+			margin-left: 1rem;
+		}
+		.dishes{
+			clear: both;
+			padding: 2rem;
+			overflow: hidden;
+			border-bottom: 1px solid #DE201F;
+
+		}
+		.dishes dl dt{
+			text-align: center;
+			overflow: hidden;
+		}
+		.dishes dl dt dr{
+			display: inline-block;
+			width: 32%;
+		}
+		.dishes dl div{
+			display: inline-block;
+			height: 250px;
+		}
+		.dishes dl div span{
+			font-size: 1.5rem;
+		}
+		.dishes dl div span:last-child{
+			margin-left: 2rem;
+		}
+		.commit dl dt:first-child{
+			overflow: hidden;
+			display: block;
+			height: 180px;
+			border-bottom: 1px solid #DE201F;
+			margin-bottom: 40px;
+		}
+		dl img{
+			width: 95%;
+			height: 200px;
+			padding: 0.5rem;
+		}
+		.commit dl dt textarea{
+			width: 80%;
+			height: 100px;
+			border:2px solid #000;
+			font-size: 100%;
+		}
+		.commit dl dt button{
+			font-size: 2rem;
+			display: block;
+			margin-top: 1rem;
+		}
+		.commit{
+			padding: 2rem;
+			overflow: hidden;
+		}
+		.commit dt{
+			font-size: 2rem;
+			height: 5rem;
+		}
+		/*.more input{
+			font-size: 3rem;
+			text-align: center;
+			margin: 0 auto;
+			display: block;
+			height: 200px;
+		}*/
+		.more1,.more2 {
+			text-align: center;
+			font-size: 2rem;
+		}
+		.canteen{
+			color: #000;
+		}
+		.notice{
+			clear: both;
+			font-size: 2rem;
+		}
+		.notice p{
+			float: left;
+			margin-left: 5rem;
+		}
+		.position a{
+			color: #000;
+		}
+		.name a{
+			color: #000;
+		}

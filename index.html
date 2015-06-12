@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>食堂就餐</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				type:'post',
+				async:false,
+				url:"main.json",
+				datatype:"json",
+				data:{name:"nihao"},
+				success:function(json){
+					 var a = json.message.length;//添加每个食堂的实时就餐人数
+					 //var test = eval(json);
+				  	 //var json = JSON.parse(json);
+					 console.log(typeof test);
+						for(var i=0,j=0;i<a,j<a;i++,j++){
+							var j;
+							j=i>7 ? i-7:i;
+							$(".content").append('<div class="college college_'+ j +'" id="bcollege_'+j+'"><span>'+json.message[i].canteenName+'</span><span><a>'+json.message[i].priTen+'</a>人次</span></div>');
+					}
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("失败");
+                            console.log(XMLHttpRequest.status);//200客户端请求已成功
+                            console.log(XMLHttpRequest.readyState);//4响应内容解析完成，可以在客户端调用了
+                            console.log(textStatus);//parsererror
+            }
+			});
+		})
+		$(function(){
+			$(".content div").on("touchstart",function(){
+				$(this).addClass(this.id);
+
+			}).on("touchend",function(){
+				$(this).removeClass(this.id),
+				// location.href="setName.action"+"?CanteenName="+$(this).find("span").html();
+				location.href="detail.html";
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top">
+			<span><img src="images/Logo.png">食堂实时就餐信息</span>
+		</div>
+		<div class="content">
+			<!-- <div class="college college_0" id="a_college">
+				<span>大学生食堂1楼</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_1" id="a_college_2">
+				<span>大学生食堂2楼</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_2" id="a_qianxi">
+				<span>千喜鹤食堂</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_3" id="a_redgao">
+				<span>红高粱食堂</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_4" id="a_xinye">
+				<span>兴业苑</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_5" id="a_haoshi">
+				<span>好食基食堂</span>
+				<span><a>30</a>人次</span>
+			</div>
+			<div class="college college_6" id="a_xinsec">
+				<span>兴业苑食堂2楼</span>
+				<span><a>30</a>人次</span>
+			</div> -->
+		</div>
+		<div class="footer">
+			<span>@重庆邮电大学团队</span>
+		</div>
+	</div>
+</body>
+</html>

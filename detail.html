@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>detail</title>
+	<link rel="stylesheet" type="text/css" href="css/detail.css">
+	<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/messages_zh.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"show.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					$(".name a").html(json.name); 
+					$(".position a").html(json.address);
+					$(".place a").html(json.settingNum);
+					$(".canteen").html(json.description);
+					$(".intro img").attr("src",json.mainPic);
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("失败");
+                            console.log(XMLHttpRequest.status);
+                            console.log(XMLHttpRequest.readyState);
+                            console.log(textStatus);
+            }
+			}),
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"suggestion.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					$(".notice p:eq(0) a").html(json.priTen);
+					$(".notice p:eq(1) a").html(json.recommendTime);
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("失败");
+                            console.log(XMLHttpRequest.status);
+                            console.log(XMLHttpRequest.readyState);
+                            console.log(textStatus);
+            }
+			}),
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"dishes.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					var a = json.food.length;
+					for(var i=0;i<9;i++){
+						$(".dishes dl dt").append('<dr><div><img src="'+json.food[i].pictureSrc+'"><span>'+json.food[i].name+'</span><span><a>'+json.food[i].price+'</a>元</span></div></dr>');
+					}
+					$(".more1 a").click(function(){
+						for(var j=9;j < a;j++){
+						$(".dishes dl dt").append('<dr><div><img src="'+json.food[j].pictureSrc+'"><span>'+json.food[j].name+'</span><span><a>'+json.food[j].price+'</a>元</span></div></dr>');
+					}
+					$(this).hide();
+					})
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("失败");
+                            console.log(XMLHttpRequest.status);
+                            console.log(XMLHttpRequest.readyState);
+                            console.log(textStatus);
+            }
+			}),
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"comment.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					var a = json.comment.length;
+					for(var i = 0;i < 3;i++){
+						$(".commit dl").append('<dt><dr>同学：</dr><dr>'+json.comment[i].content+'</dr></dt>')
+					}
+					$(".more2 a").click(function(){
+						for(var j=3;j < a;j++){
+						$(".commit dl").append('<dt><dr>同学：</dr><dr>'+json.comment[j].content+'</dr></dt>')
+					}
+					$(this).hide();
+					})
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                            alert("失败");
+                            console.log(XMLHttpRequest.status);
+                            console.log(XMLHttpRequest.readyState);
+                            console.log(textStatus);
+					}
+			}),
+			$("#commitForm").validate();
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top">
+			<span><img src="images/Logo.png">食堂实时就餐信息</span>
+		</div>
+		<div class="intro">
+			<img>
+			<div class="dinning_intro">
+				<h2>食堂信息</h2>
+				<p class="name">食堂名称:<a>大学生食堂1楼</a></p>
+				<p class="position">食堂位置:<a>25栋下面</a></p>
+				<p class="place">食堂规模:<a>222</a>座位</p>
+				<p>食堂简介:<a class="canteen">我们是全校最好的食堂</a></p>
+				
+			</div>
+			<div class="notice">
+				<p>5分钟内刷卡人数:<a>50</a></p>
+				<p>建议就餐时间:<a>12:30</a></p>
+			</div>
+		</div>
+		<div class="dishes">
+			<h1>菜品详单</h1>
+			<dl>
+				<dt>
+
+				</dt>
+				<!-- <dt>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+				</dt>
+				<dt>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+				</dt> -->
+				
+			</dl>
+			<div class="more1"><a>点击加载全部</a></div>
+		</div>
+		<div class="commit">
+			<h1>同学评价</h1>
+			<dl>
+				<dt>
+					<dr>
+						<form class="comform" id="commitForm" method="post" action="#">
+							<textarea class="required"></textarea>
+							<button type="submit">提交</button>
+						</form>
+					</dr>
+				</dt>
+			</dl>
+			<div class="more2"><a>点击加载全部</a></div>
+		</div>
+
+	</div>
+</body>
+</html>
