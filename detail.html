@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>detail</title>
-	<link rel="stylesheet" type="text/css" href="css/detail.css">
+	<link rel="stylesheet" type="text/css" href="css/detail/detail.css">
 	<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="js/messages_zh.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$.ajax({
+			$.ajax({   //添加食堂基本信息的基本函数
 				type:'post',
 				async:true,
 				url:"show.json",
@@ -29,7 +29,7 @@
                             console.log(textStatus);
             }
 			}),
-			$.ajax({
+			$.ajax({   //添加建议就餐时间的ajax函数
 				type:'post',
 				async:true,
 				url:"suggestion.json",
@@ -46,7 +46,7 @@
                             console.log(textStatus);
             }
 			}),
-			$.ajax({
+			$.ajax({          //添加菜品的ajax函数
 				type:'post',
 				async:true,
 				url:"dishes.json",
@@ -56,13 +56,36 @@
 					var a = json.food.length;
 					for(var i=0;i<9;i++){
 						$(".dishes dl dt").append('<dr><div><img src="'+json.food[i].pictureSrc+'"><span>'+json.food[i].name+'</span><span><a>'+json.food[i].price+'</a>元</span></div></dr>');
+						$(function(){    //点击图片跳转到相应的页面，并在url里面显示对应菜品的id
+						var dr = $(".dishes dr");
+						//console.log(dr.length);						
+						for(var i=0;i<dr.length;i++){
+							dr[i].onclick = function(i){
+								return function(){
+								location.href="dish_detail.html"+"?"+"id="+json.food[i].id;	
+								}
+							}(i);
+						}
+					})
 					}
 					$(".more1 a").click(function(){
 						for(var j=9;j < a;j++){
 						$(".dishes dl dt").append('<dr><div><img src="'+json.food[j].pictureSrc+'"><span>'+json.food[j].name+'</span><span><a>'+json.food[j].price+'</a>元</span></div></dr>');
+						$(function(){//和前面那个函数一样，不过这个是用来解决加载更多时候出现的bug
+						var dr = $(".dishes dr");
+						//console.log(dr.length);						
+						for(var i=0;i<dr.length;i++){
+							dr[i].onclick = function(i){
+								return function(){
+								location.href="dish_detail.html"+"?"+"id="+json.food[i].id;	
+								}
+							}(i);
+						}
+					})
 					}
 					$(this).hide();
 					})
+					
 				},
 				error:function(XMLHttpRequest, textStatus, errorThrown){
                             alert("失败");
@@ -71,7 +94,7 @@
                             console.log(textStatus);
             }
 			}),
-			$.ajax({
+			$.ajax({   //添加食堂评价的ajax函数
 				type:'post',
 				async:true,
 				url:"comment.json",
@@ -88,6 +111,7 @@
 					}
 					$(this).hide();
 					})
+					
 				},
 				error:function(XMLHttpRequest, textStatus, errorThrown){
                             alert("失败");
@@ -97,7 +121,8 @@
 					}
 			}),
 			$("#commitForm").validate();
-		})
+		});
+		
 	</script>
 </head>
 <body>
@@ -124,19 +149,10 @@
 			<h1>菜品详单</h1>
 			<dl>
 				<dt>
-
-				</dt>
-				<!-- <dt>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-				</dt>
-				<dt>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-					<dr><div><img src="images/cake.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
-				</dt> -->
-				
+					<!-- <dr><div><img src="images/dish_2.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/dish_2.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr>
+					<dr><div><img src="images/dish_2.jpg"><span>糖醋排骨</span><span><a>7</a>元</span></div></dr> -->
+				</dt>				
 			</dl>
 			<div class="more1"><a>点击加载全部</a></div>
 		</div>

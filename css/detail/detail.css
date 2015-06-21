@@ -12,7 +12,7 @@ body{
 }
 .iconfont{
     font-family:"iconfont" !important;
-    font-size:16px;font-style:normal;
+    font-size:1.5rem;font-style:normal;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
@@ -76,6 +76,10 @@ body{
 			text-align: center;
 			overflow: hidden;
 		}
+		.dishes i{
+			position: relative;
+			top: -4px;
+		}
 		.dishes dl dt dr{
 			display: inline-block;
 			width: 32%;
@@ -121,6 +125,9 @@ body{
 		.commit dt{
 			font-size: 2rem;
 			height: 5rem;
+		}
+		.commit dt dr:last-child{
+			margin-left: 40px;
 		}
 		/*.more input{
 			font-size: 3rem;

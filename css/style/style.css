@@ -2,7 +2,7 @@ body{
 	margin:0;
 	padding:0;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	background: url(../images/background.png);
+	background: url(../../images/background.png);
 }
 @font-face {font-family: 'iconfont';
     src: url('iconfont.eot'); /* IE9*/
@@ -120,6 +120,7 @@ li{
 	border-left: 3px solid #999;
 	border-bottom: 3px solid #999;
 }
+}
 .information{
 	margin-left: 10px;
 }
@@ -143,6 +144,40 @@ li{
 	margin-left: 10px;
 	margin-bottom: 30px;
 }
+#menu tr:first-child:hover{
+	background-color: none;
+}
+#menu tr:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+#menu tr:first-child:hover{
+	background-color: #fff;
+	cursor: default;
+}
+
+#dish tr:first-child:hover{
+	background-color: none;
+}
+#dish tr:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+#dish tr:first-child:hover{
+	background-color: #fff;
+	cursor: default;
+}
+#comment tr:first-child:hover{
+	background-color: none;
+}
+#comment tr:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+#comment tr:first-child:hover{
+	background-color: #fff;
+	cursor: default;
+}
 .menu table td img{
 	width: 150px;
 	height: 100px;
@@ -152,13 +187,18 @@ li{
 	width: 200px;
 	border:1px solid #eee;
 }
+#menu_head tr td:first-child{
+	text-align: left;
+}
+#comment table td:first-child{
+	text-align: left;
+	width: 613px;
+	border:1px solid #eee;
+}
 .menu .add{
 	width: 300px;
 	height: 150px;
 	margin: 0;
-}
-#menu_head tr td:first-child{
-	text-align: left;
 }
 .menu .add span,input{
 	margin-top: 15px;

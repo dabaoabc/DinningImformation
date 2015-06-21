@@ -20,7 +20,7 @@
 					 console.log(typeof test);
 						for(var i=0,j=0;i<a,j<a;i++,j++){
 							var j;
-							j=i>7 ? i-7:i;
+							j=i>7 ? i%7:i;
 							$(".content").append('<div class="college college_'+ j +'" id="bcollege_'+j+'"><span>'+json.message[i].canteenName+'</span><span><a>'+json.message[i].priTen+'</a>人次</span></div>');
 					}
 				},
@@ -28,7 +28,8 @@
                             alert("失败");
                             console.log(XMLHttpRequest.status);//200客户端请求已成功
                             console.log(XMLHttpRequest.readyState);//4响应内容解析完成，可以在客户端调用了
-                            console.log(textStatus);
+                            console.log(textStatus);//parsererror
+            }
 			});
 		})
 		$(function(){

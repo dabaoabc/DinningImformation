@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>detail</title>
+	<link rel="stylesheet" type="text/css" href="css/detail/detail.css">
+	<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/messages_zh.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"comment.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					var a = json.comment.length;
+					for(var i = 0;i < 3;i++){
+						$(".commit dl").append('<dt><dr>同学：</dr><dr>'+json.comment[i].content+'</dr></dt>')
+					}
+					$(".more2 a").click(function(){
+						for(var j=3;j < a;j++){
+						$(".commit dl").append('<dt><dr>同学：</dr><dr>'+json.comment[j].content+'</dr></dt>')
+					}
+					$(this).hide();
+					})
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+		                    alert("失败");
+		                    console.log(XMLHttpRequest.status);
+		                    console.log(XMLHttpRequest.readyState);
+		                    console.log(textStatus);
+					}
+			}),
+			$.ajax({
+				type:'post',
+				async:true,
+				url:"dishes_det.json",
+				datatype:"json",
+				data:"{}",
+				success:function(json){
+					$(".name a").html(json.food[0].name); 
+					$(".position a").html(json.food[0].price);
+					$(".intro img").attr("src",json.food[0].pictureSrc);
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert("失败");
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+					}
+			})
+			$("#commitForm").validate();
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top">
+			<span><img src="images/Logo.png">食堂实时就餐信息</span>
+		</div>
+		<div class="intro">
+			<img>
+			<div class="dinning_intro">
+				<h2>菜品信息</h2>
+				<p class="name">菜品名称:<a>红烧牛肉</a></p>
+				<p class="position">菜品价格:<a>2.5</a>元</p>
+			</div>
+			</div>
+		<div class="commit">
+			<h1>同学评价</h1>
+			<dl>
+				<dt>
+					<dr>
+						<form class="comform" id="commitForm" method="post" action="#">
+							<textarea class="required"></textarea>
+							<button type="submit">提交</button>
+						</form>
+					</dr>
+				</dt>
+			</dl>
+			<div class="more2"><a>点击加载全部</a></div>
+		</div>
+
+
+	</div>
+</body>
+</html>

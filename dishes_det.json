@@ -1,0 +1,12 @@
+{
+	"food":
+		[
+			{
+				"id":"F3E92C5B6E644C58AE847B61E3F38243",
+				"name":"糖醋排骨1",
+				"pictureSrc":"images/dish_1.jpg",
+				"price":2.3,
+				"user":""
+			}
+		]
+}
