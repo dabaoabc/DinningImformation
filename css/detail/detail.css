@@ -98,7 +98,7 @@ body{
 		.commit dl dt:first-child{
 			overflow: hidden;
 			display: block;
-			height: 180px;
+			height: 220px;
 			border-bottom: 1px solid #DE201F;
 			margin-bottom: 40px;
 		}

@@ -5,26 +5,15 @@
 	<title>管理员页面</title>
 	<link rel="stylesheet" type="text/css" href="css/style/style.css">
 	<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
-	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="js/messages_zh.js"></script>
-	<script type="text/javascript" src="js/jquery.metadata.js"></script>
-
 	<script type="text/javascript">
 		$(function(){
 			$("#menu").addClass("block").siblings().addClass("none").removeClass("block");
 			$("#nav li:eq(0)").click(function(){
 				$("#menu").addClass("block").siblings().addClass("none").removeClass("block");
 			})
-			// $("#nav li:eq(1)").click(function(){
-			// 	$("#personal").addClass("block").siblings().addClass("none").removeClass("block");
-			// }),
-			// $("#meg").click(function(){
-			// 	$("#personal").addClass("block").siblings().addClass("none").removeClass("block");
-			// })
 		})
 
 		$(function(){
-			// $("#right").height($(document.body).height()-40),
 			$.ajax({   //获取食堂信息的ajax
 				type:'post',
 				async:true,
@@ -41,6 +30,27 @@
 						$("#menu tr td:nth-child(even)").on("click",function(){
 							// alert($(this).text());
 							var a = $(this).text();
+							$.ajax({//获取食堂评论的ajax
+								type:'post',
+								async:true,
+								url:"comment.json",
+								datatype:"json",
+								data:{"CanteenName":a},
+								success:function(json){
+									var a = json.comment.length;
+									for(var i=0;i<a;i++){
+										var j = i+1;
+										$("#dish table:eq(1)").append('<tr><td>'+json.comment[i].content+'</td><td><span>删除</span></td></tr>');
+									}
+								},
+								error:function(XMLHttpRequest, textStatus, errorThrown){
+				                            alert("失败");
+				                            console.log(XMLHttpRequest.status);
+				                            console.log(XMLHttpRequest.readyState);
+				                            console.log(textStatus);
+					            }
+								}),
+
 							$.ajax({ //获取食堂菜品的ajax
 								type:'post',
 								async:true,
@@ -50,13 +60,13 @@
 								success:function(json){
 									var a = json.food.length;
 									for(var i=0;i<a;i++){
-										var j = i+1;
-										$("#dish table:eq(0)").append('<tr><td>'+j+'</td><td>'+json.food[i].name+'</td><td><a>'+json.food[i].price+'</a>元</td><td><span>删除</span></td></tr>');
+										$("#dish table:eq(0)").append('<tr><td>'+json.food[i].id+'</td><td>'+json.food[i].name+'</td><td><a>'+json.food[i].price+'</a>元</td><td><span>删除</span></td></tr>');
 									}
 									// $("#dish span").html();
 									$(function(){
-										$("#dish table:eq(0) tr").on("click",function(){
-											var b = $(this).text();
+										$("#dish table:eq(0) tr:eq(0)").nextAll().on("click",function(){
+											var b = $(this).find("td:eq(0)").text();
+											//alert(b);
 											$.ajax({//获取菜品评论的ajax
 												type:'post',
 												async:true,
@@ -75,11 +85,11 @@
 								                            console.log(XMLHttpRequest.status);
 								                            console.log(XMLHttpRequest.readyState);
 								                            console.log(textStatus);
-								            }
-											});
+								            	}
+												});
 											$(this).parents('#dish').hide().next().show();
 										})
-						})
+									})
 								},
 								error:function(XMLHttpRequest, textStatus, errorThrown){
 				                            alert("失败");
@@ -91,26 +101,6 @@
 							$(this).parents('#menu').hide().next().show();
 						})
 				})
-					$.ajax({//获取食堂评论的ajax
-						type:'post',
-						async:true,
-						url:"comment.json",
-						datatype:"json",
-						data:{"CanteenName":a},
-						success:function(json){
-							var a = json.comment.length;
-							for(var i=0;i<a;i++){
-								var j = i+1;
-								$("#dish table:eq(1)").append('<tr><td>'+json.comment[i].content+'</td><td><span>删除</span></td></tr>');
-							}
-						},
-						error:function(XMLHttpRequest, textStatus, errorThrown){
-		                            alert("失败");
-		                            console.log(XMLHttpRequest.status);
-		                            console.log(XMLHttpRequest.readyState);
-		                            console.log(textStatus);
-		            }
-					})
 				},
 
 				error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -120,27 +110,8 @@
                             console.log(textStatus);
             }
 			})
-			
-			
-			
-
 		})
-		$(function(){
-			$("#commentForm").validate(),
-			$("#dishesForm").validate(),
-			$("#commentForm1").validate({
-				rules:{
-					cpassword:{
-						required:true,
-						equalTo:"#password"
-					}
-				}
-			});
-		})
-        // function check(){
-        // 	console.log(document.getElementById("img").onchange());
 
-        // }
 	</script>
 
 </head>
@@ -148,11 +119,9 @@
 	<div class="wrap">
 		<div class="header">
 			<div class="header_inner">
-				<span>食堂管理员系统</span>
-				
+				<span>食堂管理员系统</span>			
 				<span><i class="iconfont">&#xe642;</i>管理员
 				<ul>
-<!-- 					<li id="meg">个人信息</li> -->
 					<li><a href="login.html">退出</a></li>		
 				</ul>
 				</span>
@@ -162,8 +131,6 @@
 			<div class="nav_left" id="nav">
 				<ul>
 				    <li><i class="iconfont">&#xe765;</i>食堂管理</li>
-				   <!--  <li><i class="iconfont">&#x3546;</i>菜品管理</li> -->
-<!-- 				    <li><i class="iconfont">&#xe642;</i>个人中心</li> -->
  		    	</ul>
 			</div>
 			<div class="content_right" id="right">
@@ -173,7 +140,6 @@
 				    <table>
 				    	<tr>
 				    		<th>食堂编号</th>
-				    		<!-- <th>食堂图片</th> -->
 				    		<th>食堂名称</th>
 				    		<th>操作</th>
 				    	</tr>
@@ -186,7 +152,6 @@
 				    <table>
 				    	<tr>
 				    		<th>菜品编号</th>
-				    		<!-- <th>食堂图片</th> -->
 				    		<th>菜品名称</th>
 				    		<th>菜品价格</th>
 				    		<th>操作</th>
@@ -205,32 +170,11 @@
 				    <p class="menu_head">菜品评论:</p>
 				    <table>
 				    	<tr>
-				    		<!-- <th>评论编号</th> -->
 				    		<th>评论内容</th>
 				    		<th>操作</th>
 				    	</tr>
 				    </table>
 				</div>
-				<!-- <div class="personal" id="personal">
-				<p class="per_head" id="per_head">个人中心</p>
-					<form class="cmxform" id="commentForm1" method="get" action="#">
-						<fieldset>
-							<legend>密码修改</legend>
-							<p>
-								<label for="password">请输入修改密码：</label>
-								<input id="password" name="password" size="25" minlength="6" class="required"
-								 type="password" />
-							</p>
-							<p>
-								<label for="cpassword">请确认修改密码：</label>
-								<input id="cpassword" name="cpassword" size="25" minlength="6"
-								 type="password" />
-							</p>
-							<p><input type="submit" value="提交" class="submit" /></p>
-						</fieldset>
-					</form>
-					
-				</div> -->
 			</div>
 		</div>
 	</div>
